@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>היסטוריית TOP AI 10</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            margin: 0 10px;
+        }
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .nav-links a.current {
+            background: rgba(255,255,255,0.4);
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .history-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .history-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .positive { color: #10b981; }
+        .negative { color: #ef4444; }
+        .number-cell { direction: ltr; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 היסטוריית התיק 📊</h1>
+            <div class="nav-links">
+                <a href="index.html">📊 דוח נוכחי</a>
+                <a href="history.html" class="current">📈 היסטוריה</a>
+                <a href="summary.html">📷 תמונת סיכום</a>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">
+            📊 רשומות: 2
+        </p>
+        
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>תאריך</th>
+                    <th>ערך התיק</th>
+                    <th>רווח/הפסד</th>
+                    <th>% תשואה</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>15 יוני 2025</strong></td>
+                    <td class="number-cell">$985.34</td>
+                    <td class="number-cell negative">$-14.66</td>
+                    <td class="number-cell negative">-1.47%</td>
+                </tr>
+                <tr>
+                    <td><strong>16 יוני 2025</strong></td>
+                    <td class="number-cell">$1,007.74</td>
+                    <td class="number-cell positive">$7.74</td>
+                    <td class="number-cell positive">+0.77%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+            <p>עודכן: 16/06/2025 23:21</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html" style="color: #2c3e50; text-decoration: none;">📊 חזור לדוח הראשי</a> | 
+                <a href="summary.html" style="color: #2c3e50; text-decoration: none;">📷 תמונת סיכום</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

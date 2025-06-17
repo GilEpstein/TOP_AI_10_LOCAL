@@ -1,0 +1,40 @@
+[
+  {
+    "date": "15 יוני 2025",
+    "timestamp": "2025-06-15T14:28:40.615250",
+    "portfolio_value": 985.34,
+    "original_investment": 1000,
+    "total_profit": -14.66,
+    "total_return": -1.47,
+    "days_invested": 3,
+    "benchmarks_returns": {
+      "SPY": -1.12,
+      "QQQ": -1.26,
+      "TQQQ": -3.78
+    },
+    "outperformance": {
+      "SPY": -0.35,
+      "QQQ": -0.21,
+      "TQQQ": 2.31
+    }
+  },
+  {
+    "date": "16 יוני 2025",
+    "timestamp": "2025-06-16T23:21:19.913899",
+    "portfolio_value": 1007.74,
+    "original_investment": 1000,
+    "total_profit": 7.74,
+    "total_return": 0.77,
+    "days_invested": 4,
+    "benchmarks_returns": {
+      "SPY": -0.18,
+      "QQQ": 0.12,
+      "TQQQ": 0.15
+    },
+    "outperformance": {
+      "SPY": 0.95,
+      "QQQ": 0.65,
+      "TQQQ": 0.62
+    }
+  }
+]

@@ -496,163 +496,126 @@ class ReportGenerator:
         
         return html
     
-def generate_summary_image_report(self, performance_data):
-        """יוצר דוח מקוצר לשיתוף כתמונה"""
+    def generate_summary_image_report(self, performance_data):
+        """יוצר דוח מקוצר"""
         portfolio = performance_data['portfolio_summary']
-        benchmarks = performance_data['benchmarks']
-        outperformance = performance_data['outperformance']
-        hebrew_date = performance_data['hebrew_date']
-        days_invested = performance_data['days_since_investment']
-        base_date = performance_data['base_date']
-
-        benchmark_names = {
-            "SPY": "S&P 500 🇺🇸",
-            "QQQ": "NASDAQ 100 🚀",
-            "TQQQ": "NASDAQ 3x ⚡"
-        }
-
+        
         html = f"""<!DOCTYPE html>
-<html dir=\"rtl\" lang=\"he\">
+<html dir="rtl" lang="he">
 <head>
-    <meta charset=\"UTF-8\">
+    <meta charset="UTF-8">
     <title>סיכום {self.portfolio_name}</title>
     <style>
         body {{
-            font-family: 'Segoe UI', sans-serif;
-            background: #f7f9fc;
-            padding: 20px;
-            width: 800px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
             direction: rtl;
+            width: 800px;
+            height: 600px;
+            margin: 0;
         }}
-        .card {{
+        .summary-container {{
             background: white;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            height: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }}
+        .header {{
             text-align: center;
+            margin-bottom: 30px;
         }}
-        .title {{
-            font-size: 2em;
-            font-weight: bold;
+        .header h1 {{
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }}
-        .date {{
-            font-size: 1.1em;
-            color: #666;
-            margin: 5px 0 15px 0;
+        .nav-links {{
+            text-align: center;
+            margin-bottom: 20px;
         }}
-        .nav-buttons a {{
+        .nav-links a {{
             display: inline-block;
-            margin: 5px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: #eee;
+            padding: 8px 15px;
+            background: #f0f0f0;
             color: #333;
             text-decoration: none;
-            font-weight: 500;
+            border-radius: 15px;
+            margin: 0 5px;
+            font-size: 0.9em;
         }}
-        .nav-buttons a.active {{
-            background: #333;
+        .nav-links a.current {{
+            background: #2c3e50;
             color: white;
         }}
-        .stat-block {{
-            display: inline-block;
-            width: 45%;
-            margin: 20px 2%;
-        }}
-        .value {{
-            font-size: 2.2em;
-            font-weight: bold;
-        }}
-        .negative {{ color: #e74c3c; }}
-        .positive {{ color: #2ecc71; }}
-        .section-title {{
-            margin-top: 30px;
-            font-size: 1.4em;
-            font-weight: bold;
-        }}
-        .benchmark-grid {{
+        .main-stats {{
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
         }}
-        .benchmark-box {{
-            padding: 10px;
+        .stat-box {{
+            background: #f8f9fa;
+            padding: 20px;
             border-radius: 10px;
-            background: #f0f0f0;
-            font-size: 0.95em;
+            text-align: center;
         }}
-        .winner-box {{
-            margin-top: 20px;
-            font-weight: bold;
+        .stat-box h3 {{
+            color: #6c757d;
+            margin-bottom: 10px;
         }}
+        .stat-box .value {{
+            font-size: 1.8em;
+            font-weight: 700;
+            direction: ltr;
+        }}
+        .positive {{ color: #10b981; }}
+        .negative {{ color: #ef4444; }}
         .footer {{
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #777;
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
         }}
     </style>
 </head>
 <body>
-    <div class=\"card\">
-        <div class=\"title\">🚀 {self.portfolio_name}</div>
-        <div class=\"date\">{hebrew_date} 📅</div>
-
-        <div class=\"nav-buttons\">
-            <a href=\"summary.html\" class=\"active\">תמונת סיכום 📸</a>
-            <a href=\"history.html\">היסטוריה 📈</a>
-            <a href=\"index.html\">דוח נוכחי 📊</a>
+    <div class="summary-container">
+        <div class="header">
+            <h1>🚀 {self.portfolio_name} 📊</h1>
+            <p>📅 {performance_data['hebrew_date']}</p>
         </div>
-
-        <div class=\"stat-block\">
-            <div>💎 ערך נוכחי</div>
-            <div class=\"value\">{format_currency(portfolio['current_value'])}</div>
+        
+        <div class="nav-links">
+            <a href="index.html">📊 דוח נוכחי</a>
+            <a href="history.html">📈 היסטוריה</a>
+            <a href="summary.html" class="current">📷 תמונת סיכום</a>
         </div>
-        <div class=\"stat-block\">
-            <div>רווח/הפסד 📈</div>
-            <div class=\"value {performance_color_class(portfolio['total_profit'])}\">{format_currency(portfolio['total_profit'])}</div>
-            <div class=\"{performance_color_class(portfolio['total_return'])}\">{format_percentage(portfolio['total_return'])}</div>
-        </div>
-
-        <div class=\"section-title\">השוואה למדדי שוק</div>
-        <div class=\"benchmark-grid\">
-"""
-        for symbol in ["SPY", "QQQ", "TQQQ"]:
-            bench = benchmarks.get(symbol)
-            outperf = outperformance.get(symbol)
-            if bench and outperf:
-                color_class = performance_color_class(bench['return_percent'])
-                symbol_name = benchmark_names.get(symbol, symbol)
-                diff = outperf['outperformance']
-                status = "✅ מנצח" if diff < 0 else "❌ מפסיד"
-
-                html += f"""
-                <div class='benchmark-box'>
-                    <div><strong>{symbol_name}</strong></div>
-                    <div class='{color_class}'>{format_percentage(bench['return_percent'])}</div>
-                    <div>{status} ב-{abs(diff):.1f}%</div>
+        
+        <div class="main-stats">
+            <div class="stat-box">
+                <h3>💎 ערך נוכחי</h3>
+                <div class="value">{format_currency(portfolio['current_value'])}</div>
+            </div>
+            <div class="stat-box">
+                <h3>📈 רווח/הפסד</h3>
+                <div class="value {performance_color_class(portfolio['total_profit'])}">{format_currency(portfolio['total_profit'])}</div>
+                <div class="{performance_color_class(portfolio['total_return'])}" style="font-size: 1.2em; margin-top: 5px;">
+                    {format_percentage(portfolio['total_return'])}
                 </div>
-                """
-
-        all_returns = [("תיק AI", portfolio['total_return'])] + [
-            (benchmark_names.get(sym, sym), data['return_percent']) for sym, data in benchmarks.items()
-        ]
-        winner = max(all_returns, key=lambda x: x[1])
-
-        html += f"""
+            </div>
         </div>
-
-        <div class='winner-box'>🏆 הזוכה הכללי: {winner[0]} עם תשואה של {format_percentage(winner[1])}</div>
-
-        <div class='footer'>
-            דוח אוטומטי • {days_invested} ימים מההשקעה (מאז {base_date}) • תמונה מותאמת לשיתוף 📷
+        
+        <div class="footer">
+            <p>🤖 דוח אוטומטי • ⏰ {portfolio['days_invested']} ימים מההשקעה</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">📷 תמונה מותאמת לשיתוף</p>
         </div>
     </div>
 </body>
-</html>
-"""
-
+</html>"""
+        
         return html
+    
     def _generate_empty_history_report(self):
         """דוח היסטוריה ריק"""
         return f"""<!DOCTYPE html>

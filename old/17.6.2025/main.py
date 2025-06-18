@@ -7,11 +7,11 @@
 import os
 import json
 import webbrowser
-from datetime import datetime, timedelta # Corrected import for datetime and timedelta
+from datetime import datetime, timedelta
 import config
 from report_generator import ReportGenerator
-import yfinance as yf
-import pandas as pd
+import yfinance as yf # ייבוא חדש למשיכת נתונים
+import pandas as pd   # ייבוא חדש לטיפול בנתונים מ-yfinance
 
 # --- הגדרת נתיבים וקבועים ---
 OUTPUT_DIR = "reports"
@@ -66,7 +66,7 @@ def fetch_prices_from_yahoo(symbols, date_str=None):
         
         print(f"מושך מחירי סגירה עבור תאריך {date_str}...")
         try:
-            # Removed show_errors=True as it's not supported by all yfinance versions
+            # Removed show_errors=True
             data = yf.download(symbols, start=start_date_dt.strftime('%Y-%m-%d'), 
                                end=end_date_dt.strftime('%Y-%m-%d'), progress=False)
             
@@ -74,7 +74,8 @@ def fetch_prices_from_yahoo(symbols, date_str=None):
                 for symbol in symbols:
                     if symbol in data['Close'].columns: # Multi-stock dataframe
                         if not data['Close'][symbol].empty:
-                            prices[symbol] = data['Close'][symbol].iloc[0] # Get the first (and hopefully only) close price for that day
+                            # Handle potential multiple rows for the same date (take the first)
+                            prices[symbol] = data['Close'][symbol].iloc[0] 
                     elif isinstance(data['Close'], pd.Series) and data['Close'].name == symbol: # Single stock series
                         if not data['Close'].empty:
                             prices[symbol] = data['Close'].iloc[0]
@@ -197,23 +198,60 @@ def main():
 
     # 2. וודא שרשומת הבסיס קיימת ומכילה את מחירי הבסיס
     base_date_record_exists = False
+    base_prices_from_history = {}
+
+    # נחפש רשומה עבור תאריך הבסיס וגם נוודא שיש בה מחירי בסיס מלאים
+    for record in history_data:
+        if record['date'] == config.BASE_DATE:
+            if 'stocks_performance' in record and record['stocks_performance']:
+                # Extract base_price for all symbols, not just AI_STOCKS from config
+                # Need to iterate through all symbols (AI_STOCKS + BENCHMARK_SYMBOLS)
+                # to get their base prices if they are stored in the history record.
+                # However, the record['stocks_performance'] only holds AI_STOCKS.
+                # So, we need to ensure benchmarks' base prices are also somewhere,
+                # or fetch them if they are not.
+                
+                # Let's assume for now that if the base record exists, it should have enough info
+                # and if not, we'll try to fetch all again.
+                
+                # This part is complex because base_prices_from_history needs both AI stocks AND benchmarks.
+                # The 'stocks_performance' in the history record only contains AI_STOCKS details.
+                # Benchmarks base prices would need to be stored differently in the base record
+                # or fetched fresh.
+                
+                # For simplicity, if base_date_record_exists is True, we assume we have enough
+                # or will re-fetch if needed.
+                
+                # Re-evaluating: The initial base_date_record creation explicitly stores benchmarks as 0.0.
+                # This means, if a base_date_record exists, and it's the one we created,
+                # then base_prices for benchmarks won't be explicitly stored under 'stocks_performance'.
+                # We need to rethink how to store/retrieve base prices for ALL_SYMBOLS from history.
+
+                # A simpler approach: if base_date_record exists, we can assume its 'total_return' is 0,
+                # and re-fetch ALL base prices from Yahoo Finance for that date to be accurate.
+                # This ensures we always have correct base prices, rather than relying on potentially incomplete history.
+                
+                # Let's simplify: if the base date record exists, we will re-fetch its prices
+                # to be certain, or if not, we fetch them. This makes sure `effective_base_prices` is always accurate.
+                
+                print(f"✅ רשומת תאריך בסיס {config.BASE_DATE} נמצאה בהיסטוריה. נמשוך מחירי בסיס מחדש כדי לוודא דיוק.")
+                base_date_record_exists = True # Mark as exists so we don't insert a duplicate later
+            else:
+                print(f"⚠️ רשומת תאריך בסיס {config.BASE_DATE} נמצאה, אך חסרים בה מחירי בסיס מפורטים. נמשוך מחדש.")
+            break # Found the base date record, exit loop
+
+    effective_base_prices = {}
     
     # Always attempt to fetch base prices from Yahoo Finance for BASE_DATE
+    # This ensures accuracy and handles cases where history data might be incomplete
     print(f"מנסה למשוך מחירי בסיס עבור {config.BASE_DATE} מ-Yahoo Finance.")
     fetched_base_prices = fetch_prices_from_yahoo(config.ALL_SYMBOLS, config.BASE_DATE)
     
     if all(price is not None for price in fetched_base_prices.values()):
         effective_base_prices = fetched_base_prices
         
-        # If record didn't exist, create/update it now with fetched prices
-        # First, check if a base record already exists to avoid duplication
-        existing_base_record_index = -1
-        for i, record in enumerate(history_data):
-            if record['date'] == config.BASE_DATE:
-                existing_base_record_index = i
-                break
-
-        if existing_base_record_index == -1: # Base record does not exist, create it
+        # If record didn't exist or was incomplete, create/update it now with fetched prices
+        if not base_date_record_exists:
             initial_portfolio_value = len(config.AI_STOCKS) * config.INVESTMENT_PER_STOCK
             
             initial_stocks_performance = []
@@ -221,7 +259,7 @@ def main():
                 initial_stocks_performance.append({
                     'symbol': symbol,
                     'base_price': effective_base_prices.get(symbol, 0),
-                    'current_price': effective_base_prices.get(symbol, 0), # At base date, current_price = base_price
+                    'current_price': effective_base_prices.get(symbol, 0), # בתאריך הבסיס, current_price = base_price
                     'quantity': config.INVESTMENT_PER_STOCK / effective_base_prices.get(symbol, 1) if effective_base_prices.get(symbol, 1) != 0 else 0,
                     'investment_amount': config.INVESTMENT_PER_STOCK,
                     'current_value': config.INVESTMENT_PER_STOCK,
@@ -229,11 +267,6 @@ def main():
                     'percentage_return': 0.0
                 })
             
-            # Store base prices for benchmarks in base record
-            initial_benchmarks_base_prices = {
-                symbol: effective_base_prices.get(symbol) for symbol in config.BENCHMARK_SYMBOLS
-            }
-
             base_date_record = {
                 "date": config.BASE_DATE,
                 "timestamp": datetime.combine(base_date_dt, datetime.min.time()).isoformat(),
@@ -249,21 +282,30 @@ def main():
                     "QQQ": {"benchmark_return": 0.0, "portfolio_return": 0.0, "outperformance": 0.0},
                     "TQQQ": {"benchmark_return": 0.0, "portfolio_return": 0.0, "outperformance": 0.0}
                 },
-                "stocks_performance": initial_stocks_performance,
-                "benchmarks_base_prices": initial_benchmarks_base_prices 
+                "stocks_performance": initial_stocks_performance # הוספת ביצועי המניות הבודדות
             }
             history_data.insert(0, base_date_record)
             print("✅ רשומת תאריך בסיס נוצרה והוכנסה להיסטוריה עם מחירי בסיס אמיתיים.")
         else:
             print("✅ מחירי בסיס נמשכו מחדש בהצלחה עבור רשומת תאריך בסיס קיימת.")
+            # If record existed, we should ensure it's up to date with these fetched base prices
+            # This logic might need refinement if you truly want to update an *existing* base record
+            # with new base prices from a re-fetch. For now, it will simply be used for calculations.
             
     else:
         print("❌ אזהרה חמורה: לא ניתן למשוך מחירי בסיס עבור כל הסימבולים מ-Yahoo Finance. החישובים לא יהיו מדויקים!")
         print("אנא וודא חיבור לאינטרנט ושהסימבולים ('ANET', 'AVGO', 'ASML', 'CEG', 'CRWD', 'NVDA', 'PLTR', 'TSLA', 'TSM', 'VRT', 'SPY', 'QQQ', 'TQQQ') תקינים עבור Yahoo Finance.")
+        # Fallback to previously loaded history data's base prices if available, or exit.
+        # This part of the logic becomes crucial if fetching fails.
+        # For a robust solution, you might store BASE_PRICES directly in config.py
+        # and only update them if the API fetch is successful and the date matches.
         
+        # For now, if fetching failed, effective_base_prices will be empty, leading to the error below.
+        # This is a strict fail, ensuring no reports are generated with inaccurate base data.
+
     if not effective_base_prices or not all(price is not None for price in effective_base_prices.values()):
         print("❌ שגיאה: מחירי בסיס חיוניים חסרים. לא ניתן להמשיך בחישובים מדויקים.")
-        return 
+        return # יציאה מהפונקציה אם אין מחירי בסיס תקינים
 
     # 3. הבא מחירי סגירה עדכניים עבור היום
     current_prices = fetch_prices_from_yahoo(config.ALL_SYMBOLS)
@@ -272,11 +314,11 @@ def main():
     if not all(price is not None for price in current_prices.values()):
         print("❌ שגיאה: לא ניתן למשוך מחירי סגירה עדכניים עבור כל הסימבולים. החישובים לא יהיו מדויקים!")
         print("אנא וודא חיבור לאינטרנט ושהסימבולים תקינים עבור Yahoo Finance.")
-        return 
+        return # יציאה אם מחירי היום חסרים
 
     # 4. חשב ביצועים עבור התאריך הנוכחי
     calculated_performance = calculate_performance(
-        effective_base_prices, 
+        effective_base_prices, # השתמש במחירי הבסיס שנמשכו או נמצאו
         current_prices,
         config.INVESTMENT_PER_STOCK,
         config.AI_STOCKS,
@@ -286,14 +328,6 @@ def main():
     # חשב ימים שהושקעו מהתאריך base_date
     days_invested = (today_date - base_date_dt).days
     if days_invested < 0: days_invested = 0
-
-    # Add benchmark prices to current_day_record
-    benchmarks_current_prices = {
-        symbol: current_prices.get(symbol) for symbol in config.BENCHMARK_SYMBOLS
-    }
-    benchmarks_base_prices_for_report = {
-        symbol: effective_base_prices.get(symbol) for symbol in config.BENCHMARK_SYMBOLS
-    }
 
     # צור את מבנה הנתונים המלא לרשומה של היום הנוכחי, כולל כל המידע הנדרש לדוחות
     current_day_record = {
@@ -305,9 +339,7 @@ def main():
         "days_invested": days_invested,
         "benchmarks_returns": calculated_performance['benchmarks_returns'],
         "outperformance": calculated_performance['outperformance'],
-        "stocks_performance": calculated_performance['stocks_performance'],
-        "benchmarks_current_prices": benchmarks_current_prices,
-        "benchmarks_base_prices": benchmarks_base_prices_for_report
+        "stocks_performance": calculated_performance['stocks_performance'] # חשוב: הוספת ביצועי מניות בודדות
     }
 
     # 5. בדוק אם כבר קיימת רשומה עבור התאריך הנוכחי ועדכן או הוסף

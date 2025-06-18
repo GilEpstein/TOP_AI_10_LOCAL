@@ -1,120 +1,160 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="he">
-<head>
-    <meta charset="UTF-8">
-    <title>היסטוריית TOP AI 10</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: #2c3e50;
-            color: white;
-            border-radius: 15px;
-        }
-        .header h1 {
-            font-size: 2.5em;
-            color: white;
-            margin-bottom: 20px;
-        }
-        .nav-links a {
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 20px;
-            margin: 0 10px;
-        }
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .nav-links a.current {
-            background: rgba(255,255,255,0.4);
-        }
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .history-table th {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        .history-table td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-        .positive { color: #10b981; }
-        .negative { color: #ef4444; }
-        .number-cell { direction: ltr; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>📈 היסטוריית התיק 📊</h1>
-            <div class="nav-links">
-                <a href="index.html">📊 דוח נוכחי</a>
-                <a href="history.html" class="current">📈 היסטוריה</a>
-                <a href="summary.html">📷 תמונת סיכום</a>
-            </div>
-        </div>
+
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>היסטוריית ביצועי תיק - TOP AI 10</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f4f7f6;
+                    color: #333;
+                    line-height: 1.6;
+                }
+                .container {
+                    max-width: 900px;
+                    margin: 30px auto;
+                    background-color: #ffffff;
+                    padding: 30px 40px;
+                    border-radius: 12px;
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+                    border-top: 5px solid #007bff;
+                }
+                h1, h2, h3 {
+                    color: #007bff;
+                    text-align: center;
+                    margin-bottom: 25px;
+                    font-weight: 600;
+                }
+                .header-info {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    font-size: 1.1em;
+                    color: #555;
+                }
+                .history-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 30px;
+                    margin-bottom: 40px;
+                    text-align: right;
+                }
+                .history-table th {
+                    background-color: #007bff;
+                    color: white;
+                    padding: 12px 15px;
+                    border: 1px solid #ddd;
+                    text-align: center;
+                }
+                .history-table td {
+                    padding: 10px 15px;
+                    border: 1px solid #eee;
+                    text-align: center;
+                }
+                .history-table tbody tr:nth-child(even) {
+                    background-color: #f8f8f8;
+                }
+                .positive { color: #28a745; }
+                .negative { color: #dc3545; }
+                .neutral { color: #6c757d; }
+                .links {
+                    text-align: center;
+                    margin-top: 40px;
+                    margin-bottom: 20px;
+                }
+                .links a {
+                    display: inline-block;
+                    margin: 0 15px;
+                    padding: 10px 20px;
+                    background-color: #007bff;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    transition: background-color 0.3s ease;
+                }
+                .links a:hover {
+                    background-color: #0056b3;
+                }
+                .disclaimer {
+                    font-size: 0.9em;
+                    color: #777;
+                    text-align: center;
+                    margin-top: 30px;
+                    padding-top: 15px;
+                    border-top: 1px solid #eee;
+                }
+                .footer {
+                    text-align: center;
+                    font-size: 0.85em;
+                    color: #888;
+                    margin-top: 20px;
+                    padding-bottom: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>היסטוריית ביצועי תיק TOP AI 10</h1>
+                <div class="header-info">
+                    <p>מציג את ביצועי התיק לאורך זמן.</p>
+                </div>
+
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>שווי תיק</th>
+                            <th>רווח/הפסד</th>
+                            <th>תשואה %</th>
+                            <th>ימים הושקעו</th>
+                            <th>SPY תשואה %</th>
+                            <th>QQQ תשואה %</th>
+                            <th>TQQQ תשואה %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    <tr>
+                        <td>17 June 2025</td>
+                        <td>+$993.31</td>
+                        <td class="negative">-$6.69</td>
+                        <td class="negative">-0.67%</td>
+                        <td>5</td>
+                        <td class="negative">-1.02%</td>
+                        <td class="negative">-0.91%</td>
+                        <td class="negative">-2.97%</td>
+                    </tr>
+            
+                    <tr>
+                        <td>12 June 2025</td>
+                        <td>+$1,000.00</td>
+                        <td class="neutral">$0.00</td>
+                        <td class="neutral">0.00%</td>
+                        <td>0</td>
+                        <td class="neutral">0.00%</td>
+                        <td class="neutral">0.00%</td>
+                        <td class="neutral">0.00%</td>
+                    </tr>
+            
+                    </tbody>
+                </table>
+
+                <div class="links">
+                    <a href="index.html">🏠 דף הבית</a>
+                    <a href="history.html">📈 היסטוריית תיק</a>
+                    <a href="summary.html">📸 סיכום לשיתוף</a>
+                    <a href="graphs.html">📊 גרפים</a>
+                </div>
+            
+                <div class="disclaimer">
+                    <p>הערה: נתוני הביצועים והמדדים המוצגים בדוח זה הם לצרכים אינפורמטיביים ואינם מהווים ייעוץ פיננסי.</p>
+                </div>
+                <div class="footer">
+                    דו"ח זה נוצר אוטומטית על ידי מערכת מעקב התיקים של TOP AI 10. &copy; 2025.
+                </div>
+            </body>
+        </html>
         
-        <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">
-            📊 רשומות: 2
-        </p>
-        
-        <table class="history-table">
-            <thead>
-                <tr>
-                    <th>תאריך</th>
-                    <th>ערך התיק</th>
-                    <th>רווח/הפסד</th>
-                    <th>% תשואה</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>15 יוני 2025</strong></td>
-                    <td class="number-cell">$985.34</td>
-                    <td class="number-cell negative">$-14.66</td>
-                    <td class="number-cell negative">-1.47%</td>
-                </tr>
-                <tr>
-                    <td><strong>16 יוני 2025</strong></td>
-                    <td class="number-cell">$1,007.74</td>
-                    <td class="number-cell positive">$7.74</td>
-                    <td class="number-cell positive">+0.77%</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-            <p>עודכן: 16/06/2025 23:21</p>
-            <p style="margin-top: 10px;">
-                <a href="index.html" style="color: #2c3e50; text-decoration: none;">📊 חזור לדוח הראשי</a> | 
-                <a href="summary.html" style="color: #2c3e50; text-decoration: none;">📷 תמונת סיכום</a>
-            </p>
-        </div>
-    </div>
-</body>
-</html>

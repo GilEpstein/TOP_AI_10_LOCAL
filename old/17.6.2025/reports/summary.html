@@ -1,0 +1,245 @@
+
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>סיכום לשיתוף - TOP AI 10</title>
+            <style>
+                
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f7f6;
+                color: #333;
+                line-height: 1.6;
+            }
+            .container {
+                max-width: 900px;
+                margin: 30px auto;
+                background-color: #ffffff;
+                padding: 30px 40px;
+                border-radius: 12px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+                border-top: 5px solid #007bff;
+            }
+            h1, h2, h3 {
+                color: #007bff;
+                text-align: center;
+                margin-bottom: 25px;
+                font-weight: 600;
+            }
+            .header-info {
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 0.95em;
+                color: #555;
+            }
+            .header-info p {
+                margin: 5px 0;
+            }
+            .summary-card {
+                background-color: #e9f5ff;
+                border: 1px solid #cce5ff;
+                border-radius: 10px;
+                padding: 25px;
+                margin-bottom: 30px;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+            .summary-card h2 {
+                color: #0056b3;
+                margin-top: 0;
+                font-size: 1.8em;
+            }
+            .summary-card p {
+                font-size: 1.2em;
+                margin: 8px 0;
+            }
+            .summary-card .value {
+                font-size: 2.2em;
+                font-weight: 700;
+                color: #28a745; /* Green for positive */
+            }
+            .summary-card .value.negative {
+                color: #dc3545; /* Red for negative */
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            }
+            th, td {
+                padding: 12px 18px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+            th {
+                background-color: #007bff;
+                color: white;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.9em;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #f0f0f0;
+            }
+            .positive {
+                color: #28a745;
+                font-weight: 600;
+            }
+            .negative {
+                color: #dc3545;
+                font-weight: 600;
+            }
+            .neutral {
+                color: #6c757d;
+                font-weight: 600;
+            }
+            .disclaimer {
+                font-size: 0.85em;
+                color: #777;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px dashed #e0e0e0;
+                text-align: center;
+            }
+            .links {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+            }
+            .links a {
+                display: inline-block;
+                margin: 0 15px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            }
+            .links a:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px);
+            }
+            .footer {
+                text-align: center;
+                margin-top: 50px;
+                font-size: 0.8em;
+                color: #a0a0a0;
+            }
+            .comparison-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+                margin-top: 30px;
+            }
+            .comparison-item {
+                background-color: #f8f9fa;
+                border: 1px solid #e2e6ea;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            }
+            .comparison-item h3 {
+                font-size: 1.3em;
+                color: #343a40;
+                margin-top: 0;
+                margin-bottom: 10px;
+            }
+            .comparison-item p {
+                margin: 5px 0;
+                font-size: 1.1em;
+            }
+            .comparison-item .value {
+                font-size: 1.8em;
+                font-weight: 700;
+            }
+            .summary-image-section {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .summary-image-section img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            }
+            .plotly-graph-div {
+                margin: 20px auto;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+        
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                
+        
+            <div class="summary-image-section">
+                <h1>💰 סיכום ביצועים - TOP AI 10 💰</h1>
+                <p style="font-size: 1.1em; color: #555;">תאריך הדוח: <strong>17 יוני 2025</strong> | ימים מאז תחילת המעקב: <strong>5</strong></p>
+
+                <div class="summary-card" style="max-width: 500px; margin: 30px auto; padding: 30px; border: 2px solid #007bff;">
+                    <p style="font-size: 1.3em;">השקעה מקורית: <strong>+$1,000.00</strong></p>
+                    <p style="font-size: 1.8em; margin: 15px 0;">ערך נוכחי: <span class="value positive">+$1,003.48</span></p>
+                    <p style="font-size: 1.5em;">רווח/הפסד כולל: <span class="positive">+$3.48</span></p>
+                    <p style="font-size: 1.5em;">תשואה כוללת: <span class="positive">+0.35%</span></p>
+                </div>
+
+                <h2 style="margin-top: 40px; color: #007bff;">תשואה עודפת מול מדדי ייחוס</h2>
+                <div class="comparison-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); max-width: 700px; margin: 20px auto;">
+        
+                    <div class="comparison-item" style="padding: 15px;">
+                        <h3>SPY</h3>
+                        <p style="font-size: 1em;">תשואת מדד: <span class="negative">-0.47%</span></p>
+                        <p style="font-size: 1.0em;">תשואת תיק: <span class="positive">+0.35%</span></p>
+                        <p style="font-size: 1.4em; font-weight: bold;">תשואה עודפת: <span class="value positive">+0.72%</span></p>
+                    </div>
+            
+                    <div class="comparison-item" style="padding: 15px;">
+                        <h3>QQQ</h3>
+                        <p style="font-size: 1em;">תשואת מדד: <span class="negative">-0.20%</span></p>
+                        <p style="font-size: 1.0em;">תשואת תיק: <span class="positive">+0.35%</span></p>
+                        <p style="font-size: 1.4em; font-weight: bold;">תשואה עודפת: <span class="value positive">+0.45%</span></p>
+                    </div>
+            
+                    <div class="comparison-item" style="padding: 15px;">
+                        <h3>TQQQ</h3>
+                        <p style="font-size: 1em;">תשואת מדד: <span class="negative">-0.52%</span></p>
+                        <p style="font-size: 1.0em;">תשואת תיק: <span class="positive">+0.35%</span></p>
+                        <p style="font-size: 1.4em; font-weight: bold;">תשואה עודפת: <span class="value positive">+0.87%</span></p>
+                    </div>
+            
+                </div>
+            </div>
+            <div class="links">
+                <a href="index.html">🏠 דף הבית</a>
+                <a href="history.html">📈 היסטוריית תיק</a>
+                <a href="summary.html">📸 סיכום לשיתוף</a>
+            </div>
+        
+                <div class="disclaimer">
+                    <p>הערה: נתוני הביצועים והמדדים המוצגים בדוח זה הם לצרכים אינפורמטיביים ואינם מהווים ייעוץ פיננסי.</p>
+                </div>
+                <div class="footer">
+                    דו"ח זה נוצר אוטומטית על ידי מערכת מעקב התיקים של TOP AI 10. &copy; 2025
+                </div>
+            </div>
+        </body>
+        </html>
+        

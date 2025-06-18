@@ -1,0 +1,281 @@
+[
+  {
+    "date": "2025-06-12",
+    "timestamp": "2025-06-12T00:00:00",
+    "portfolio_value": 1000,
+    "total_profit": 0.0,
+    "total_return": 0.0,
+    "days_invested": 0,
+    "benchmarks_returns": {
+      "SPY": 0.0,
+      "QQQ": 0.0,
+      "TQQQ": 0.0
+    },
+    "outperformance": {
+      "SPY": {
+        "benchmark_return": 0.0,
+        "portfolio_return": 0.0,
+        "outperformance": 0.0
+      },
+      "QQQ": {
+        "benchmark_return": 0.0,
+        "portfolio_return": 0.0,
+        "outperformance": 0.0
+      },
+      "TQQQ": {
+        "benchmark_return": 0.0,
+        "portfolio_return": 0.0,
+        "outperformance": 0.0
+      }
+    },
+    "stocks_performance": [
+      {
+        "symbol": "ANET",
+        "base_price": 95.7699966430664,
+        "current_price": 95.7699966430664,
+        "quantity": 1.0441683565334012,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "AVGO",
+        "base_price": 256.07000732421875,
+        "current_price": 256.07000732421875,
+        "quantity": 0.3905182065050933,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "ASML",
+        "base_price": 786.2100219726562,
+        "current_price": 786.2100219726562,
+        "quantity": 0.1271924768258397,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "CEG",
+        "base_price": 300.3800048828125,
+        "current_price": 300.3800048828125,
+        "quantity": 0.3329116398377218,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "CRWD",
+        "base_price": 481.7300109863281,
+        "current_price": 481.7300109863281,
+        "quantity": 0.20758515707844924,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "NVDA",
+        "base_price": 145.0,
+        "current_price": 145.0,
+        "quantity": 0.6896551724137931,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "PLTR",
+        "base_price": 135.19000244140625,
+        "current_price": 135.19000244140625,
+        "quantity": 0.7396996685708456,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "TSLA",
+        "base_price": 319.1099853515625,
+        "current_price": 319.1099853515625,
+        "quantity": 0.3133715790492432,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "TSM",
+        "base_price": 215.42999267578125,
+        "current_price": 215.42999267578125,
+        "quantity": 0.46418791904476564,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      },
+      {
+        "symbol": "VRT",
+        "base_price": 114.4607925415039,
+        "current_price": 114.4607925415039,
+        "quantity": 0.8736616074341756,
+        "investment_amount": 100,
+        "current_value": 100,
+        "profit_loss": 0.0,
+        "percentage_return": 0.0
+      }
+    ],
+    "benchmarks_base_prices": {
+      "SPY": 603.75,
+      "QQQ": 533.6599731445312,
+      "TQQQ": 75.69000244140625
+    }
+  },
+  {
+    "date": "2025-06-17",
+    "timestamp": "2025-06-17T21:24:03.028372",
+    "portfolio_value": 993.3097504721225,
+    "total_profit": -6.6902495278775405,
+    "total_return": -0.6690249527877541,
+    "days_invested": 5,
+    "benchmarks_returns": {
+      "SPY": -1.0202854069616978,
+      "QQQ": -0.9069381373674227,
+      "TQQQ": -2.972651509347999
+    },
+    "outperformance": {
+      "SPY": {
+        "benchmark_return": -1.0202854069616978,
+        "portfolio_return": -0.6690249527877541,
+        "outperformance": 0.3512604541739437
+      },
+      "QQQ": {
+        "benchmark_return": -0.9069381373674227,
+        "portfolio_return": -0.6690249527877541,
+        "outperformance": 0.2379131845796686
+      },
+      "TQQQ": {
+        "benchmark_return": -2.972651509347999,
+        "portfolio_return": -0.6690249527877541,
+        "outperformance": 2.3036265565602445
+      }
+    },
+    "stocks_performance": [
+      {
+        "symbol": "ANET",
+        "base_price": 95.7699966430664,
+        "current_price": 90.63999938964844,
+        "quantity": 1.0441683565334012,
+        "investment_amount": 100,
+        "current_value": 94.6434191988777,
+        "profit_loss": -5.3565808011223055,
+        "percentage_return": -5.3565808011223055
+      },
+      {
+        "symbol": "AVGO",
+        "base_price": 256.07000732421875,
+        "current_price": 250.0449981689453,
+        "quantity": 0.3905182065050933,
+        "investment_amount": 100,
+        "current_value": 97.64712423050585,
+        "profit_loss": -2.3528757694941476,
+        "percentage_return": -2.3528757694941476
+      },
+      {
+        "symbol": "ASML",
+        "base_price": 786.2100219726562,
+        "current_price": 760.3784790039062,
+        "quantity": 0.1271924768258397,
+        "investment_amount": 100,
+        "current_value": 96.71442206957158,
+        "profit_loss": -3.285577930428417,
+        "percentage_return": -3.285577930428417
+      },
+      {
+        "symbol": "CEG",
+        "base_price": 300.3800048828125,
+        "current_price": 304.6000061035156,
+        "quantity": 0.3329116398377218,
+        "investment_amount": 100,
+        "current_value": 101.40488752650145,
+        "profit_loss": 1.4048875265014544,
+        "percentage_return": 1.4048875265014544
+      },
+      {
+        "symbol": "CRWD",
+        "base_price": 481.7300109863281,
+        "current_price": 490.25,
+        "quantity": 0.20758515707844924,
+        "investment_amount": 100,
+        "current_value": 101.76862325770973,
+        "profit_loss": 1.7686232577097343,
+        "percentage_return": 1.7686232577097343
+      },
+      {
+        "symbol": "NVDA",
+        "base_price": 145.0,
+        "current_price": 144.44000244140625,
+        "quantity": 0.6896551724137931,
+        "investment_amount": 100,
+        "current_value": 99.61379478717673,
+        "profit_loss": -0.38620521282327047,
+        "percentage_return": -0.38620521282327047
+      },
+      {
+        "symbol": "PLTR",
+        "base_price": 135.19000244140625,
+        "current_price": 137.16000366210938,
+        "quantity": 0.7396996685708456,
+        "investment_amount": 100,
+        "current_value": 101.45720925003828,
+        "profit_loss": 1.4572092500382752,
+        "percentage_return": 1.4572092500382752
+      },
+      {
+        "symbol": "TSLA",
+        "base_price": 319.1099853515625,
+        "current_price": 315.8669128417969,
+        "quantity": 0.3133715790492432,
+        "investment_amount": 100,
+        "current_value": 98.98371324664356,
+        "profit_loss": -1.0162867533564395,
+        "percentage_return": -1.0162867533564395
+      },
+      {
+        "symbol": "TSM",
+        "base_price": 215.42999267578125,
+        "current_price": 213.92999267578125,
+        "quantity": 0.46418791904476564,
+        "investment_amount": 100,
+        "current_value": 99.30371812143285,
+        "profit_loss": -0.6962818785671487,
+        "percentage_return": -0.6962818785671487
+      },
+      {
+        "symbol": "VRT",
+        "base_price": 114.4607925415039,
+        "current_price": 116.48999786376953,
+        "quantity": 0.8736616074341756,
+        "investment_amount": 100,
+        "current_value": 101.77283878366458,
+        "profit_loss": 1.7728387836645823,
+        "percentage_return": 1.7728387836645825
+      }
+    ],
+    "benchmarks_current_prices": {
+      "SPY": 597.5900268554688,
+      "QQQ": 528.8200073242188,
+      "TQQQ": 73.44000244140625
+    },
+    "benchmarks_base_prices": {
+      "SPY": 603.75,
+      "QQQ": 533.6599731445312,
+      "TQQQ": 75.69000244140625
+    }
+  }
+]
